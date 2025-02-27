@@ -7,6 +7,7 @@ export const FormInput = ({
   register,
   error,
   required = false,
+  ...rest
 }) => {
   return (
     <Form.Group className="mb-3">
@@ -18,6 +19,8 @@ export const FormInput = ({
         placeholder={placeholder}
         {...register}
         isInvalid={!!error}
+        noValidate
+        {...rest}
       />
       <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
     </Form.Group>
@@ -29,7 +32,7 @@ export const FormTextarea = ({
   placeholder,
   register,
   error,
-  required = false, // Handles required fields
+  required = false,
 }) => {
   return (
     <Form.Group className="mb-3">
