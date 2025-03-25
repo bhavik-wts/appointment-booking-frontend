@@ -1,0 +1,9 @@
+.react-tel-input .country-list {
+    width: 200px !important;
+    /* Adjust dropdown width */
+}
+
+/* Hide the search box inside the dropdown */
+.react-tel-input .country-list .search {
+    display: none !important;
+}

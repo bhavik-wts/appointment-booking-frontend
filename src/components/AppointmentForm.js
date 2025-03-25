@@ -6,6 +6,7 @@ import { bookAppointment } from "../api/api";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { FormInput, FormTextarea } from "./Form/FormField"; // Import reusable input component
 import axios from "axios";
+import "yup-phone-lite";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -17,11 +18,11 @@ const schema = yup.object().shape({
     .trim()
     .nullable()
     .notRequired()
-    .test("isValidPhone", "Phone number must be 10 digits", (value) => {
-      if (!value) return true; // If empty, it's valid
-      return /^[0-9]{10}$/.test(value);
-    }),
-  email: yup.string().nullable().notRequired().email("Invalid email format"),
+    .phone(undefined, false, "Invalid phone number"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Invalid email format"),
   // .optional(),
 });
 
@@ -36,6 +37,7 @@ const AppointmentForm = () => {
     setValue,
     reset,
     clearErrors,
+    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -143,19 +145,21 @@ const AppointmentForm = () => {
             />
 
             <FormInput
-              label="Phone"
-              type="tel"
-              placeholder="Enter your phone number"
-              register={register("phone")}
-              error={errors.phone?.message}
-            />
-
-            <FormInput
               label="Email"
               type="email"
               placeholder="Enter your email"
               register={register("email")}
               error={errors.email?.message}
+              required={true}
+            />
+
+            <FormInput
+              label="Phone"
+              type="tel"
+              placeholder="Enter your phone number"
+              register={register("phone")}
+              error={errors.phone?.message}
+              control={control}
             />
 
             <FormInput

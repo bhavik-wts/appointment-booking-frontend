@@ -53,6 +53,7 @@ const AppointmentsList = () => {
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Address</th>
+                <th>Meet Link</th>
               </tr>
             </thead>
             <tbody>
@@ -67,6 +68,15 @@ const AppointmentsList = () => {
                     <td>{appointment.phone || "N/A"}</td>
                     <td>{appointment.email || "N/A"}</td>
                     <td>{appointment.address || "N/A"}</td>
+                    <td>
+                      <a
+                        href={appointment.meetLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {appointment.meetLink}
+                      </a>
+                    </td>
                   </tr>
                 ))
               ) : (
